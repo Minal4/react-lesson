@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Route, Routes } from 'react-router-dom';
+import Counter from './components/Counter/CounterClass';
+import { CounterFunc } from './components/Counter/CounterFunc';
+import Home from './components/Home';
+import { Navigation } from './components/Navigation/Navigation';
+import { Quiz } from './components/Quiz/Quiz';
+import { SearchFunc } from './components/Search/SearchFunc';
+import { TemperatureFunc } from './components/Temp/TemperatureFunc';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navigation />
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="count" element={<Counter />}>
+            <Route path="countFunc" element={<CounterFunc />} />
+          </Route>
+          <Route path="tempFunc" element={<TemperatureFunc />} />
+          <Route path="searchFunc" element={<SearchFunc />} />
+          <Route path="quiz" element={<Quiz />} />
+        </Routes>
+      </div>
     </div>
   );
 }
