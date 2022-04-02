@@ -1,0 +1,29 @@
+@media screen and (max-width: 767px) {
+  .navbar-expand .navbar-nav {
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    left: -100%;
+    transition: 0.3s ease-in-out;
+    background: #333;
+    align-items: flex-start;
+    padding: 0;
+    margin: 0;
+    top: 56px;
+  }
+  .navbar-expand .navbar-nav.active {
+    left: 0;
+  }
+  .icon {
+    color: #fff;
+    position: absolute;
+    right: 30px;
+    top: 13px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .icon {
+    display: none;
+  }
+}
