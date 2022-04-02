@@ -5,8 +5,10 @@ import { CounterFunc } from './components/Counter/CounterFunc';
 import Home from './components/Home';
 import { Navigation } from './components/Navigation/Navigation';
 import { Quiz } from './components/Quiz/Quiz';
+import { Register } from './components/Registration/Register';
 import { SearchFunc } from './components/Search/SearchFunc';
 import { TemperatureFunc } from './components/Temp/TemperatureFunc';
+import './App.css';
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
           <Route path="tempFunc" element={<TemperatureFunc />} />
           <Route path="searchFunc" element={<SearchFunc />} />
           <Route path="quiz" element={<Quiz />} />
+          <Route path="register" element={<Register />} />
         </Routes>
       </div>
     </div>

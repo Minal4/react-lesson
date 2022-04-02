@@ -31,6 +31,9 @@ export const Navigation = () => {
               <NavLink className="nav-link" to="quiz">
                 Quiz
               </NavLink>
+              <NavLink className="nav-link btn-register" to="register">
+                Register
+              </NavLink>
             </Nav>
             <div className="icon" onClick={handleClick}>
               {toggle ? <FaWindowClose /> : <FaBars />}
