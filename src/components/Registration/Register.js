@@ -19,30 +19,57 @@ export const Register = () => {
   });
 
   const [reg, setReg] = useState([]);
+  const [err, setErr] = useState(field);
   const [success, setSuccess] = useState(false);
 
   const handlerChange = (e) => {
     const { name, value } = e.target;
     setField({ ...field, [name]: value });
+    validate(e);
+  };
+  const validate = (e) => {
+    let { name, value } = e.target;
+    let errMsg = '';
+    switch (name) {
+      case 'fname':
+        errMsg = field['fname'] === '' ? 'Please fill the form' : '';
+        break;
+      case 'lname':
+        errMsg = field['lname'] === '' ? 'Please fill the form' : '';
+        break;
+      case 'password':
+        errMsg =
+          field['password'] === ''
+            ? 'Please fill the form'
+            : field['cpassword'].length < 5
+            ? 'Password should be atleast 5 character'
+            : '';
+        break;
+      case 'cpassword':
+        errMsg =
+          field['password'] && value !== field['cpassword'] && value
+            ? 'Password do not match'
+            : field['cpassword'].length < 5
+            ? 'Password should be atleast 5 character'
+            : 'ss';
+        break;
+      default:
+    }
+    setErr((pre) => {
+      return {
+        ...pre,
+        [name]: errMsg,
+      };
+    });
   };
   console.log(field, '#field');
 
   const handlerClick = (e) => {
     e.preventDefault();
-    if (
-      !field.fname ||
-      !field.lname ||
-      !field.password ||
-      !field.cpassword ||
-      field.password !== field.cpassword
-    ) {
-      alert('please fill the form');
-    } else {
-      const newData = { ...field };
-      setReg([...reg, newData]);
-      setSuccess(true);
-      toast('Register Successfully !');
-    }
+
+    const newData = { ...field };
+    setReg([...reg, newData]);
+    setSuccess(true);
   };
 
   console.log(reg, '@sdas');
@@ -56,43 +83,51 @@ export const Register = () => {
       </FormTitle>
       <form>
         <NameWrap>
+          <div className="input-group">
+            <InputField
+              value={field.fname}
+              type="text"
+              name="fname"
+              className={success && field.fname === '' ? 'btn-red' : ''}
+              placeholder="First Name"
+              onChange={handlerChange}
+            />
+            <span className="text-danger">{err.fname}</span>
+          </div>
+          <div className="input-group">
+            <InputField
+              value={field.lname}
+              name="lname"
+              onChange={handlerChange}
+              className={success && !field.fname ? 'btn-red' : ''}
+              type="text"
+              placeholder="Last Name"
+            />
+            <span className="text-danger">{err.lname}</span>
+          </div>
+        </NameWrap>
+        <div className="input-group">
           <InputField
-            value={field.fname}
-            type="text"
-            name="fname"
-            className={success && field.fname === '' ? 'btn-red' : ''}
-            placeholder="First Name"
-            onChange={handlerChange}
-          />
-          {success && !field.fname ? <span>asdasd</span> : ''}
-          <InputField
-            value={field.lname}
-            name="lname"
+            value={field.password}
+            name="password"
             onChange={handlerChange}
             className={success && !field.fname ? 'btn-red' : ''}
-            type="text"
-            placeholder="Last Name"
+            type="password"
+            placeholder="Password"
           />
-          {success && !field.lname ? <span>asdasd</span> : ''}
-        </NameWrap>
-        <InputField
-          value={field.password}
-          name="password"
-          onChange={handlerChange}
-          className={success && !field.fname ? 'btn-red' : ''}
-          type="password"
-          placeholder="Password"
-        />
-        {success && !field.password ? <span>asdasd</span> : ''}
-        <InputField
-          value={field.cpassword}
-          name="cpassword"
-          onChange={handlerChange}
-          className={success && !field.fname ? 'btn-red' : ''}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        {success && !field.cpassword ? <span>asdasd</span> : ''}
+          <span className="text-danger">{err.password}</span>
+        </div>
+        <div className="input-group">
+          <InputField
+            value={field.cpassword}
+            name="cpassword"
+            onChange={handlerChange}
+            className={success && !field.fname ? 'btn-red' : ''}
+            type="password"
+            placeholder="Confirm Password"
+          />
+          <span className="text-danger">{err.cpassword}</span>
+        </div>
 
         <BtnRegister onClick={handlerClick} className="btn btn-primary">
           {' '}

@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FormContainer, FormTitle, InputField } from '../ElementStyled';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaTrashAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { TodoList } from './TodoList';
 
 export const Todo = () => {
   const [data, setData] = useState('');
   const [list, setList] = useState([]);
+  // const [count, setCount] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(list)); //store colors
+    JSON.parse(localStorage.getItem('items')); //get them back
+  }, [list]);
   const handlerChange = (e) => {
     const { value } = e.target;
     setData(value.charAt(0).toUpperCase() + value.slice(1));
@@ -16,17 +23,6 @@ export const Todo = () => {
     setList([...list, data]);
     setData('');
   };
-
-  const handlerDelete = (del) => {
-    setList(
-      list.filter((item, index) => {
-        return index !== del;
-      })
-    );
-  };
-
-  console.log(data);
-  console.log(list, '@list');
 
   const ListWrap = styled.ul`
     list-style: none;
@@ -66,9 +62,14 @@ export const Todo = () => {
           <ListWrap>
             {list.map((item, index) => {
               return (
-                <li key={index}>
-                  {item} <FaTrashAlt onClick={() => handlerDelete(index)} />
-                </li>
+                <TodoList
+                  setList={setList}
+                  list={list}
+                  item={item}
+                  index={index}
+                  // count={count}
+                  // setCount={setCount}
+                />
               );
             })}
           </ListWrap>

@@ -10,6 +10,8 @@ import { SearchFunc } from './components/Search/SearchFunc';
 import { TemperatureFunc } from './components/Temp/TemperatureFunc';
 import './App.css';
 import { Todo } from './components/TODO/Todo';
+import { Contacts } from './components/Contact/Contacts';
+import { Quote } from './components/Quotes/quote';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="searchFunc" element={<SearchFunc />} />
           <Route path="quiz" element={<Quiz />} />
           <Route path="todo" element={<Todo />} />
+          <Route path="contact" element={<Contacts />} />
+          <Route path="quote" element={<Quote />} />
           <Route path="register" element={<Register />} />
         </Routes>
       </div>

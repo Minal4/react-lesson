@@ -34,3 +34,40 @@
     display: none;
   }
 }
+
+.navbar-nav ul:not(.sub-menu) {
+  display: flex;
+  padding: 0;
+}
+
+.navbar-nav ul:not(.sub-menu) li:not(:last-child) {
+  margin-right: 5px;
+}
+
+.navbar-nav ul li {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav ul li span {
+  cursor: pointer;
+  color: #fff;
+}
+
+.sub-menu {
+  padding: 0;
+  background-color: #333;
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  width: 200px;
+  top: 95%;
+}
+
+.sub-menu li {
+  padding: 5px 10px;
+}
+
+.sub-menu.active {
+  opacity: 1;
+}

@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import './NavigationStyled.css';
-import { FaBars, FaWindowClose } from 'react-icons/fa';
+import {
+  FaBars,
+  FaWindowClose,
+  FaChevronDown,
+  FaChevronUp,
+} from 'react-icons/fa';
+import { SubMenu } from './SubMenu';
 
 export const Navigation = () => {
+  const [active, setActive] = useState(false);
   const [toggle, setToggle] = useState(false);
   const handleClick = () => {
-    setToggle(~toggle);
+    setToggle(!toggle);
   };
   return (
     <div>
@@ -16,27 +23,30 @@ export const Navigation = () => {
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <div>
             <Nav className={`${toggle ? 'active' : 'navbar'}`}>
-              <NavLink className="nav-link" to="/">
-                Home
-              </NavLink>
-              <NavLink className="nav-link" to="count">
-                Counter
-              </NavLink>
-              <NavLink className="nav-link" to="tempFunc">
-                Temp Cal
-              </NavLink>
-              <NavLink className="nav-link" to="searchFunc">
-                Search
-              </NavLink>
-              <NavLink className="nav-link" to="quiz">
-                Quiz
-              </NavLink>
-              <NavLink className="nav-link" to="todo">
-                TODO
-              </NavLink>
-              <NavLink className="nav-link btn-register" to="register">
-                Register
-              </NavLink>
+              <ul>
+                <li>
+                  <NavLink className="nav-link" to="/">
+                    Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink className="nav-link" to="count">
+                    Projects
+                  </NavLink>
+                  <span onClick={() => setActive(!active)}>
+                    <FaChevronDown />
+                  </span>
+                  <ul className={active ? 'active sub-menu' : 'sub-menu'}>
+                    {' '}
+                    <SubMenu />
+                  </ul>
+                </li>
+                <li>
+                  <NavLink className="nav-link btn-register" to="register">
+                    Register
+                  </NavLink>
+                </li>
+              </ul>
             </Nav>
             <div className="icon" onClick={handleClick}>
               {toggle ? <FaWindowClose /> : <FaBars />}
